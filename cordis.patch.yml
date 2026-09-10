@@ -1,0 +1,5 @@
+# Endfield HUD bundle patch: inserts its plugin row into the web plugin roster.
+# Install: dsh plugin --profile web add link:<repo>
+- insert:
+    - id: endfield-hud
+      name: dsh-client-ui-endfield-hud

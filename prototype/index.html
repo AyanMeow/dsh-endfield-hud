@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>终末地 HUD · DSH 皮肤原型 M0</title>
+<link rel="stylesheet" href="prototype.css">
+</head>
+<body>
+
+<input type="checkbox" id="demo-modal" hidden>
+<div class="demo-bar">
+  <label for="demo-modal" class="btn-ghost">设置弹窗 DEMO</label>
+  <a class="btn-ghost" href="specimen.html">组件规范 SPECIMEN</a>
+</div>
+
+<div class="hud-bg"></div>
+
+<div class="hud-frame">
+
+  <!-- ================= 侧栏 ================= -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="top">
+        <span class="mark"></span>
+        <span class="title">DEEPSEEK HARNESS</span>
+      </div>
+      <div class="sub">
+        <span class="t-micro">终末地 HUD</span>
+        <span class="t-data dim">V0.1.0 · M0</span>
+      </div>
+    </div>
+
+    <div class="ws-row ef-cut">
+      <span class="dot"></span>
+      <span class="name">dshdefault</span>
+      <span class="path">D:\dshdefault</span>
+    </div>
+
+    <div class="btn-new ef-cut">
+      <span class="label">新建会话 · New Session</span>
+      <span class="kbd">CTRL N</span>
+    </div>
+
+    <div class="side-sec">
+      <span class="t-section">会话</span>
+      <span class="t-micro">SESSIONS</span>
+      <span class="count">07</span>
+    </div>
+    <div class="ef-hair"></div>
+    <div class="sec-list">
+      <div class="srow is-active">
+        <span class="name">皮肤插件架构讨论</span>
+        <span class="meta"><span>12:04</span><span class="tag">FLASH-EXP</span><span>· 42 轮</span></span>
+      </div>
+      <div class="srow">
+        <span class="name">hive-city-voxel 体素优化</span>
+        <span class="meta"><span>昨天</span><span>PRO</span><span>· 18 轮</span></span>
+      </div>
+      <div class="srow">
+        <span class="name">SSH 部署脚本排查</span>
+        <span class="meta"><span>昨天</span><span>PRO</span><span>· 9 轮</span></span>
+      </div>
+      <div class="srow">
+        <span class="name">任务看板 cron 调试</span>
+        <span class="meta"><span>09-07</span><span>FLASH</span><span>· 5 轮</span></span>
+      </div>
+      <div class="srow">
+        <span class="name">图像理解插件接入</span>
+        <span class="meta"><span>09-06</span><span>FLASH</span><span>· 23 轮</span></span>
+      </div>
+
+      <div class="side-sec">
+        <span class="t-section">模块</span>
+        <span class="t-micro">MODULES</span>
+        <span class="count">04</span>
+      </div>
+      <div class="ef-hair"></div>
+      <div class="mrow"><span class="ic"></span><span class="nm">任务看板 · Task Board</span><span class="st on"></span></div>
+      <div class="mrow"><span class="ic"></span><span class="nm">SSH 运维 · SSH Ops</span><span class="st on"></span></div>
+      <div class="mrow"><span class="ic"></span><span class="nm">Git 图谱 · Git Graph</span><span class="st"></span></div>
+      <div class="mrow"><span class="ic"></span><span class="nm">鲸鱼娘 · Pet</span><span class="st on"></span></div>
+    </div>
+
+    <div class="side-foot">
+      <div class="cell ef-cut"><div class="k">Model</div><div class="v">V4.1 FLASH</div></div>
+      <div class="cell ef-cut"><div class="k">Context</div><div class="v accent">34%</div></div>
+      <div class="cell ef-cut"><div class="k">Permission</div><div class="v">WS-WRITE</div></div>
+      <div class="cell ef-cut"><div class="k">Latency</div><div class="v">1.2s</div></div>
+    </div>
+  </aside>
+
+  <!-- ================= 中栏 ================= -->
+  <main class="center">
+    <header class="sess-head">
+      <span class="title">皮肤插件架构讨论</span>
+      <span class="crumb">session-1a510f7d · dshdefault</span>
+      <span class="spacer"></span>
+      <span class="pill"><i></i>流式输出 STREAMING</span>
+      <span class="pill warn"><i></i>workspace-write</span>
+    </header>
+
+    <div class="stream">
+
+      <div class="msg user">
+        <div class="who"><span class="bar"></span><span class="nm">Operator</span><span class="time">12:04:11</span></div>
+        <div class="bubble ef-cut">
+          <div class="t-body">帮我把 DSH 的 Web UI 改成终末地风格的全息 HUD，先出静态效果，再补动效。素材策略先按本地自用无限制来开发。</div>
+        </div>
+      </div>
+
+      <div class="msg">
+        <div class="who"><span class="bar"></span><span class="nm">Harness</span><span class="time">12:04:38</span></div>
+        <div class="think ef-cut">
+          <div class="hd"><span class="chev">▸</span><span class="t-micro">思考 · Reasoning</span><span class="t-data dim" style="margin-left:auto">2.4s</span></div>
+          <div class="t-body-light">先确认皮肤加载路径：皮肤中心的 hooks 对用户皮肤是 403，所以动效必须由自研客户端插件承担；静态外观可以走 L1 token + L2 语义属性。接着定色板——官网 CSS 实测主色是 #FFFA00 而不是琥珀黄。</div>
+        </div>
+
+        <div class="tool ef-cut">
+          <div class="hd"><span class="t-micro">工具调用 · Tool</span><span class="name">bash</span><span class="ok">✓ 0.42s</span></div>
+          <div class="args">node tools/fetch-refs.mjs --pages 6 --max 60
+→ _refs/fonts 30 个文件 · _refs/css 9 个文件 · _refs/img 60 个文件</div>
+        </div>
+
+        <div class="bubble ef-cut">
+          <div class="t-body" style="margin-bottom:10px">抓取完成。官网用的正是 <span class="accent">Novecento Sans Wide</span> + <span class="accent">Gilroy</span> + <span class="accent">Protest Strike</span>，全部拿到本地 woff2，不需要替换。色板按实测值重排：</div>
+          <div class="code ef-cut">
+            <div class="hd"><span class="lang">css</span><span class="copy">tokens.json</span></div>
+            <pre><span class="ln">1</span><span class="k">:root</span> {
+<span class="ln">2</span>  --ef-black-700: <span class="s">#191919</span>;  <span class="c">/* 面板底（官网主色） */</span>
+<span class="ln">3</span>  --ef-accent:    <span class="s">#FFFA00</span>;  <span class="c">/* 柠檬黄，单屏占比 &lt; 5% */</span>
+<span class="ln">4</span>  --ef-magenta:   <span class="s">#FF1AAC</span>;  <span class="c">/* 告警信号 */</span>
+<span class="ln">5</span>  --ef-mint:      <span class="s">#00FFA2</span>;  <span class="c">/* 在线 / 成功 */</span>
+<span class="ln">6</span>}</pre>
+          </div>
+          <div class="t-body-light">深度分四级 d0–d3，每级绑定固定的描边、阴影与视差系数；形状语言是「直角 + 对角切 + 1px 描边 + L 形角标」。静态版先只做这些，动效留到 M4。</div>
+        </div>
+      </div>
+
+      <div class="msg user">
+        <div class="who"><span class="bar"></span><span class="nm">Operator</span><span class="time">12:07:02</span></div>
+        <div class="bubble ef-cut">
+          <div class="t-body">可以开始 M0 开发，注意目录管理。</div>
+        </div>
+      </div>
+
+      <div class="msg">
+        <div class="who"><span class="bar"></span><span class="nm">Harness</span><span class="time">12:07:20</span></div>
+        <div class="bubble ef-cut">
+          <div class="t-body">已建好骨架：<span class="t-mono">_refs/</span> 放抓来的参考素材（不进仓库）、<span class="t-mono">design/</span> 放 token、<span class="t-mono">prototype/</span> 放静态原型、<span class="t-mono">assets/fonts/</span> 放要随包发布的字体。<span class="caret"></span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="composer">
+      <div class="composer-inner ef-cut">
+        <div class="chips">
+          <span class="chip">附件 <b>tokens.json</b></span>
+          <span class="chip">引用 <b>_refs/css</b></span>
+        </div>
+        <div class="input-area">把 composer 的左边那条黄线也加进原型里，顺便给我看一下设置弹窗的样子<span class="cursor"></span></div>
+        <div class="composer-bar">
+          <span class="sel">模型 <b>V4.1 FlashExp</b> <span class="cv">▼</span></span>
+          <span class="sel">思考 <b>低</b> <span class="cv">▼</span></span>
+          <span class="sel accent">权限 <b>workspace-write</b> <span class="cv">▼</span></span>
+          <span class="spacer"></span>
+          <span class="meter"><span class="t-micro">CTX</span><span class="bar"><i></i></span><span class="t-data dim">34%</span></span>
+          <span class="btn-ghost">停止 STOP</span>
+          <span class="btn-send ef-cut"><span class="t">发送 · Send</span></span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ================= 右栏 ================= -->
+  <aside class="details">
+    <div class="dtabs">
+      <span class="dtab is-active">资源</span>
+      <span class="dtab">编辑器</span>
+      <span class="dtab">终端</span>
+      <span class="dtab">Git</span>
+    </div>
+    <div class="dbody">
+      <div class="block ef-cut">
+        <div class="hd"><span class="t-section">工作区</span><span class="t-micro">Workspace</span><span class="r">12 files</span></div>
+        <div class="tree">
+          <div class="row"><span class="ic">▾</span><span class="nm">dsh-endfield-hud</span></div>
+          <div class="row indent"><span class="ic">▾</span><span class="nm">design</span></div>
+          <div class="row indent" style="padding-left:28px"><span class="ic">·</span><span class="nm on">tokens.json</span><span class="diff-add">+86</span></div>
+          <div class="row indent"><span class="ic">▾</span><span class="nm">prototype</span></div>
+          <div class="row indent" style="padding-left:28px"><span class="ic">·</span><span class="nm">index.html</span><span class="diff-add">+142</span></div>
+          <div class="row indent" style="padding-left:28px"><span class="ic">·</span><span class="nm">prototype.css</span><span class="diff-add">+342</span></div>
+          <div class="row indent"><span class="ic">▸</span><span class="nm">assets/fonts</span></div>
+          <div class="row indent"><span class="ic">▸</span><span class="nm dim">_refs</span></div>
+          <div class="row indent"><span class="ic">▸</span><span class="nm">tools</span></div>
+        </div>
+      </div>
+
+      <div class="block ef-cut">
+        <div class="hd"><span class="t-section">变更</span><span class="t-micro">Changes</span><span class="r">M0</span></div>
+        <div class="stat-grid">
+          <div class="stat ef-cut"><div class="k">Files</div><div class="v">06</div></div>
+          <div class="stat ef-cut"><div class="k">Added</div><div class="v mint">+570</div></div>
+          <div class="stat ef-cut"><div class="k">Removed</div><div class="v magenta">-0</div></div>
+          <div class="stat ef-cut"><div class="k">Assets</div><div class="v">132<small> KB</small></div></div>
+        </div>
+      </div>
+
+      <div class="block ef-cut">
+        <div class="hd"><span class="t-section">运行</span><span class="t-micro">Runtime</span><span class="r">live</span></div>
+        <div class="t-data" style="line-height:24px">
+          <div>node <span class="dim">v24.13.0</span> · pnpm <span class="dim">10.x</span></div>
+          <div>dsh web <span class="mint">127.0.0.1:3080</span></div>
+          <div>profile <span class="dim">web</span> · plugins <span class="accent">17</span></div>
+        </div>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<!-- ================= 装饰层 ================= -->
+<div class="hud-deco">
+  <div class="edge-top"></div>
+  <div class="corner tl"></div>
+  <div class="corner tr"></div>
+  <div class="corner bl"></div>
+  <div class="corner br"></div>
+  <div class="rec"><i></i><span class="t-micro">Rec · 会话进行中</span></div>
+  <div class="stamp">SYS <b>0.98</b><br>INTEGRATED INDUSTRY<br>// TALOS-II</div>
+  <div class="footline">Endfield HUD · DSH Web Skin · M0 Static Prototype</div>
+</div>
+
+<!-- ================= 设置弹窗 ================= -->
+<div class="overlay">
+  <div class="modal ef-cut">
+    <div class="hd">
+      <span class="t-display-l">设置 · Settings</span>
+      <span class="spacer" style="flex:1"></span>
+      <label for="demo-modal" class="x">✕ CLOSE</label>
+    </div>
+    <div class="body">
+      <div class="nav">
+        <div class="it on">外观 · 终末地 HUD</div>
+        <div class="it">通用</div>
+        <div class="it">模型</div>
+        <div class="it">插件配置</div>
+        <div class="it">皮肤中心</div>
+        <div class="it">关于</div>
+      </div>
+      <div class="pane">
+        <div class="field">
+          <div class="lb"><div class="n">启用终末地 HUD</div><div class="d">总开关</div></div>
+          <div class="switch on"><i></i></div>
+        </div>
+        <div class="field">
+          <div class="lb"><div class="n">视差强度</div><div class="d">鼠标偏移幅度（M4）</div></div>
+          <div class="range"><i></i><b></b></div>
+        </div>
+        <div class="field">
+          <div class="lb"><div class="n">边缘噪点</div><div class="d">HUD 边缘波动拟真（M4）</div></div>
+          <div class="range"><i style="width:22%"></i><b style="left:calc(22% - 4px)"></b></div>
+        </div>
+        <div class="field">
+          <div class="lb"><div class="n">降低动效</div><div class="d">跟随系统 prefers-reduced-motion</div></div>
+          <div class="switch"><i></i></div>
+        </div>
+        <div class="field">
+          <div class="lb"><div class="n">面板不透明度</div><div class="d">背景透出程度</div></div>
+          <div class="range"><i style="width:72%"></i><b style="left:calc(72% - 4px)"></b></div>
+        </div>
+        <div class="field" style="border-bottom:0">
+          <div class="lb"><div class="n">字体</div><div class="d">Novecento Wide · Gilroy · Protest Strike</div></div>
+          <span class="t-data dim">官网原文件</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

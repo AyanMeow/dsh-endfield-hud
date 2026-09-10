@@ -1,0 +1,1189 @@
+/* ============================================================================
+   Endfield HUD · DSH Web GUI 皮肤样式表
+   served at /plugins/endfield-hud/assets/skin.css   （字体同目录 ./fonts/）
+   三层结构：L1 token 重映射 → L2 语义选择器 → L3 少量兜底
+   作用域：html[data-ef-hud="on"]（由 host 的 tapIndex 首屏盖章，client 负责实时开关）
+   ========================================================================== */
+
+/* ---------- 字体（官网原文件） ---------- */
+@font-face { font-family: 'Novecento Wide'; src: url('./fonts/NovecentoWide-Medium.woff2') format('woff2'); font-weight: 500; font-display: swap; }
+@font-face { font-family: 'Novecento Wide'; src: url('./fonts/NovecentoWide-DemiBold.woff2') format('woff2'); font-weight: 600; font-display: swap; }
+@font-face { font-family: 'Novecento Wide'; src: url('./fonts/NovecentoWide-Bold.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'Gilroy'; src: url('./fonts/Gilroy-Light.woff2') format('woff2'); font-weight: 300; font-display: swap; }
+@font-face { font-family: 'Gilroy'; src: url('./fonts/Gilroy-Medium.woff2') format('woff2'); font-weight: 500; font-display: swap; }
+@font-face { font-family: 'Gilroy'; src: url('./fonts/Gilroy-ExtraBold.woff2') format('woff2'); font-weight: 800; font-display: swap; }
+@font-face { font-family: 'Protest Strike'; src: url('./fonts/ProtestStrike-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Space Grotesk EF'; src: url('./fonts/SpaceGrotesk-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Roboto EF'; src: url('./fonts/Roboto-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Roboto EF'; src: url('./fonts/Roboto-Black.woff2') format('woff2'); font-weight: 900; font-display: swap; }
+
+/* ==========================================================================
+   L1 · 官方 --dsw-* token 重映射
+   作用域写成 html[data-ef-hud="on"] body 是为了压过官方的 body[data-ds-dark-theme]
+   （两者同为目标元素上的声明，body 上的那份继承优先级更高）。
+   ========================================================================== */
+/* 双重属性选择器（specificity 0,2,1 / 0,2,2）用于压过皮肤中心已激活皮肤
+   （如 harbor 的 html[data-dsh-skin="harbor"]，0,1,1）——否则谁后加载谁赢。 */
+/* --- 主题无关：字体族 --- */
+html[data-ef-hud="on"][data-ef-hud="on"],
+html[data-ef-hud="on"][data-ef-hud="on"] body {
+  --dsw-font-family: 'Gilroy', 'HarmonyOS Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --dsw-font-markdown-code-font-family: 'SF Mono', 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+  --dsw-font-markdown-code-block-font-family: 'SF Mono', 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+}
+
+/* --- L1 · 亮色（官方未加 data-ds-dark-theme 时的默认主题） ---
+   终末地亮色：暖白底 + 纯黑字 + 柠檬黄只作填充，文字用深黄保证对比度。 */
+html[data-ef-hud="on"][data-ef-hud="on"],
+html[data-ef-hud="on"][data-ef-hud="on"] body {
+  color-scheme: light;
+  color: #191919;
+  background-color: #EDEDEB;
+  --ef-caret: #8A7A00;
+  --ef-focus: #8A7A00;
+  /* 美术层：面板半透明，让背景 KV 透出来 */
+  --ef-panel-1: rgba(247, 247, 245, .90);
+  --ef-panel-2: rgba(255, 255, 255, .82);
+  --ef-panel-3: rgba(255, 255, 255, .88);
+
+  /* 背景层次 */
+  --dsw-alias-bg-base: #EDEDEB;
+  --dsw-alias-bg-layer-1: #F7F7F5;
+  --dsw-alias-bg-layer-2: #FFFFFF;
+  --dsw-alias-bg-layer-3: #FFFFFF;
+  --dsw-alias-bg-overlay: rgba(237, 237, 235, .92);
+  --dsw-alias-bg-mask-1: rgba(0, 0, 0, .28);
+  --dsw-alias-bg-mask-2: rgba(0, 0, 0, .42);
+  --dsw-alias-bg-mask-3: rgba(0, 0, 0, .58);
+  --dsw-alias-bg-mask-drop: rgba(0, 0, 0, .42);
+  --dsw-alias-bg-mask-photo: rgba(0, 0, 0, .62);
+  --dsw-alias-bg-module-platform: #F7F7F5;
+  --dsw-alias-bg-multi-select: rgba(0, 0, 0, .05);
+  --dsw-alias-bg-skeleton: rgba(0, 0, 0, .06);
+
+  /* 描边 */
+  --dsw-alias-border-l1: rgba(0, 0, 0, .12);
+  --dsw-alias-border-l2: rgba(0, 0, 0, .18);
+  --dsw-alias-border-l2-darkmode-thin: rgba(0, 0, 0, .12);
+  --dsw-alias-border-l3: rgba(0, 0, 0, .30);
+  --dsw-alias-border-l4: rgba(0, 0, 0, .42);
+  --dsw-alias-border-inverted: #FFFFFF;
+  --dsw-alias-border-inverted2: #F7F7F5;
+
+  /* 文字 */
+  --dsw-alias-label-primary: #191919;
+  --dsw-alias-label-primary-foreground: #0E0E0E;
+  --dsw-alias-label-primary-dimmed: #4A4A4A;
+  --dsw-alias-label-primary-inverted: #FFFFFF;
+  --dsw-alias-label-primary-bluish: #191919;
+  --dsw-alias-label-secondary: #4A4A4A;
+  --dsw-alias-label-tertiary: #5F5F5F;
+  --dsw-alias-label-caption: #5F5F5F;
+  --dsw-alias-label-dimmed: #6E6E6E;
+
+  /* 品牌与按钮 */
+  --dsw-alias-brand-primary: #FFE900;
+  --dsw-alias-brand-primary-invert: #191919;
+  --dsw-alias-brand-primary-new-colorprimary-new-color: #FFE900;
+  --dsw-alias-brand-text: #6B5E00;
+  --dsw-alias-button-primary-fill: #FFE900;
+  --dsw-alias-button-primary-hover: #FFF321;
+  --dsw-alias-button-primary-dimmed: #E6DE01;
+  --dsw-alias-button-contrast-fill: #191919;
+  --dsw-alias-button-elevated-fill: #FFFFFF;
+  --dsw-alias-button-floating-fill: #FFFFFF;
+  --dsw-alias-button-floating-hover: #F2F2F0;
+  --dsw-alias-button-info-fill: #F2F2F0;
+  --dsw-alias-button-info-hover: #E8E8E6;
+  --dsw-alias-button-tool-bar-fill: transparent;
+  --dsw-alias-button-tool-bar-fill-invisible: transparent;
+  --dsw-alias-button-tool-bar-hover: rgba(0, 0, 0, .05);
+  --dsw-alias-button-ghost-active-fill: rgba(255, 233, 0, .22);
+  --dsw-alias-button-ghost-active-border: #B8A800;
+  --dsw-alias-button-ghost-active-hover: rgba(255, 233, 0, .32);
+
+  /* 交互态 */
+  --dsw-alias-interactive-bg-hover: rgba(0, 0, 0, .04);
+  --dsw-alias-interactive-bg-active: rgba(0, 0, 0, .07);
+  --dsw-alias-interactive-bg-hover-accent: rgba(255, 233, 0, .20);
+  --dsw-alias-interactive-bg-hover-danger: rgba(194, 0, 106, .12);
+  --dsw-alias-interactive-bg-hover-solid: #E8E8E6;
+
+  /* 状态色（亮底上加深，保证 4.5:1） */
+  --dsw-alias-state-success-primary: #00784A;
+  --dsw-alias-state-success-secondary: rgba(0, 120, 74, .14);
+  --dsw-alias-state-success-tertiary: rgba(0, 120, 74, .08);
+  --dsw-alias-state-error-primary: #C2006A;
+  --dsw-alias-state-error-secondary: rgba(194, 0, 106, .14);
+  --dsw-alias-state-warn-primary: #7A6A00;
+  --dsw-alias-state-warn-secondary: rgba(122, 106, 0, .14);
+  --dsw-alias-state-warn-tertiary: rgba(122, 106, 0, .08);
+  --dsw-alias-state-warn-label: #7A6A00;
+  --dsw-alias-state-business-primary: #00689E;
+  --dsw-alias-state-business-tertiary: rgba(0, 104, 158, .10);
+
+  /* 代码 / markdown（亮色下代码块保持浅底，跟随 shiki 亮色主题） */
+  --dsw-alias-markdown-code-block: #F5F5F3;
+  --dsw-alias-markdown-code-block-banner: #EDEDEB;
+  --dsw-alias-markdown-code-segment-selected: #E8E8E6;
+  --dsw-alias-markdown-code-segment-unselected: transparent;
+  --dsw-alias-markdown-inline-code: #F2F2F0;
+  --dsw-alias-markdown-citation: #6B5E00;
+  --dsw-alias-markdown-tag: #6E6E6E;
+  --dsw-alias-markdown-placeholder: #6E6E6E;
+
+  /* 滚动条 / 浮层 */
+  --dsw-alias-scrollbar-bg-l1: rgba(0, 0, 0, .18);
+  --dsw-alias-scrollbar-bg-l2: rgba(0, 0, 0, .10);
+  --dsw-alias-scrollbar-hover-l1: rgba(0, 0, 0, .34);
+  --dsw-alias-scrollbar-hover-l2: rgba(0, 0, 0, .24);
+  --dsw-alias-toast-bg: #FFFFFF;
+  --dsw-alias-tooltip-bg: #191919;
+
+  /* 组件级 */
+  --dsw-specific-sidebar-fill: #F7F7F5;
+  --dsw-specific-sidebar-nav-item-active: rgba(255, 233, 0, .22);
+  --dsw-specific-sidebar-nav-item-active-accent: #B8A800;
+  --dsw-specific-sidebar-nav-item-hover: rgba(0, 0, 0, .04);
+  --dsw-specific-menu: #FFFFFF;
+  --dsw-specific-tip: #FFFFFF;
+  --dsw-specific-selector: #FFFFFF;
+  --dsw-specific-input-major: #FFFFFF;
+  --dsw-specific-login-input: #FFFFFF;
+  --dsw-specific-bubble: rgba(255, 255, 255, .88);
+  --dsw-specific-bubble-highlight: rgba(255, 233, 0, .16);
+}
+
+/* --- L1 · 暗色（官方 body 带 data-ds-dark-theme） ---
+   :has() 让 html 自身也拿到暗色值；body 属性那条是 :has 不受支持时的兜底。 */
+html[data-ef-hud="on"][data-ef-hud="on"]:has(body[data-ds-dark-theme]),
+html[data-ef-hud="on"][data-ef-hud="on"] body[data-ds-dark-theme] {
+  color-scheme: dark;
+  color: #E6E6E6;
+  background-color: #0E0E0E;
+  --ef-caret: #FFFA00;
+  --ef-focus: #FFFA00;
+  --ef-panel-1: rgba(19, 19, 21, .86);
+  --ef-panel-2: rgba(19, 19, 21, .78);
+  --ef-panel-3: rgba(25, 25, 25, .74);
+
+  /* 背景层次 */
+  --dsw-alias-bg-base: #0E0E0E;
+  --dsw-alias-bg-layer-1: #131315;
+  --dsw-alias-bg-layer-2: #191919;
+  --dsw-alias-bg-layer-3: #1F1F22;
+  --dsw-alias-bg-overlay: rgba(14, 14, 14, .92);
+  --dsw-alias-bg-mask-1: rgba(0, 0, 0, .40);
+  --dsw-alias-bg-mask-2: rgba(0, 0, 0, .58);
+  --dsw-alias-bg-mask-3: rgba(0, 0, 0, .76);
+  --dsw-alias-bg-mask-drop: rgba(0, 0, 0, .58);
+  --dsw-alias-bg-mask-photo: rgba(0, 0, 0, .72);
+  --dsw-alias-bg-module-platform: #191919;
+  --dsw-alias-bg-multi-select: rgba(255, 255, 255, .06);
+  --dsw-alias-bg-skeleton: rgba(255, 255, 255, .07);
+
+  /* 描边 */
+  --dsw-alias-border-l1: rgba(255, 255, 255, .10);
+  --dsw-alias-border-l2: rgba(255, 255, 255, .16);
+  --dsw-alias-border-l2-darkmode-thin: rgba(255, 255, 255, .10);
+  --dsw-alias-border-l3: rgba(255, 255, 255, .28);
+  --dsw-alias-border-l4: rgba(255, 255, 255, .36);
+  --dsw-alias-border-inverted: #0E0E0E;
+  --dsw-alias-border-inverted2: #191919;
+
+  /* 文字 */
+  --dsw-alias-label-primary: #E6E6E6;
+  --dsw-alias-label-primary-foreground: #FFFFFF;
+  --dsw-alias-label-primary-dimmed: #B2B2B2;
+  --dsw-alias-label-primary-inverted: #0E0E0E;
+  --dsw-alias-label-primary-bluish: #E6E6E6;
+  --dsw-alias-label-secondary: #B2B2B2;
+  --dsw-alias-label-tertiary: #999999;
+  --dsw-alias-label-caption: #999999;
+  --dsw-alias-label-dimmed: #8A8A8A;
+
+  /* 品牌与按钮 */
+  --dsw-alias-brand-primary: #FFFA00;
+  --dsw-alias-brand-primary-invert: #0E0E0E;
+  --dsw-alias-brand-primary-new-colorprimary-new-color: #FFFA00;
+  --dsw-alias-brand-text: #FFFA00;
+  --dsw-alias-button-primary-fill: #FFFA00;
+  --dsw-alias-button-primary-hover: #FFFF21;
+  --dsw-alias-button-primary-dimmed: #E6DE01;
+  --dsw-alias-button-contrast-fill: #FFFFFF;
+  --dsw-alias-button-elevated-fill: #1F1F22;
+  --dsw-alias-button-floating-fill: #1F1F22;
+  --dsw-alias-button-floating-hover: #2A2A2E;
+  --dsw-alias-button-info-fill: #1F1F22;
+  --dsw-alias-button-info-hover: #2A2A2E;
+  --dsw-alias-button-tool-bar-fill: transparent;
+  --dsw-alias-button-tool-bar-fill-invisible: transparent;
+  --dsw-alias-button-tool-bar-hover: rgba(255, 255, 255, .07);
+  --dsw-alias-button-ghost-active-fill: rgba(255, 250, 0, .10);
+  --dsw-alias-button-ghost-active-border: #FFFA00;
+  --dsw-alias-button-ghost-active-hover: rgba(255, 250, 0, .16);
+
+  /* 交互态 */
+  --dsw-alias-interactive-bg-hover: rgba(255, 255, 255, .05);
+  --dsw-alias-interactive-bg-active: rgba(255, 255, 255, .08);
+  --dsw-alias-interactive-bg-hover-accent: rgba(255, 250, 0, .10);
+  --dsw-alias-interactive-bg-hover-danger: rgba(255, 26, 172, .14);
+  --dsw-alias-interactive-bg-hover-solid: #26262A;
+
+  /* 状态色 */
+  --dsw-alias-state-success-primary: #00FFA2;
+  --dsw-alias-state-success-secondary: rgba(0, 255, 162, .16);
+  --dsw-alias-state-success-tertiary: rgba(0, 255, 162, .10);
+  --dsw-alias-state-error-primary: #FF1AAC;
+  --dsw-alias-state-error-secondary: rgba(255, 26, 172, .16);
+  --dsw-alias-state-warn-primary: #FFFA00;
+  --dsw-alias-state-warn-secondary: rgba(255, 250, 0, .16);
+  --dsw-alias-state-warn-tertiary: rgba(255, 250, 0, .10);
+  --dsw-alias-state-warn-label: #FFFA00;
+  --dsw-alias-state-business-primary: #00FFA2;
+  --dsw-alias-state-business-tertiary: rgba(0, 255, 162, .10);
+
+  /* 代码 / markdown */
+  --dsw-alias-markdown-code-block: #0B0B0B;
+  --dsw-alias-markdown-code-block-banner: #131315;
+  --dsw-alias-markdown-code-segment-selected: #1F1F22;
+  --dsw-alias-markdown-code-segment-unselected: transparent;
+  --dsw-alias-markdown-inline-code: #1F1F22;
+  --dsw-alias-markdown-citation: #FFFA00;
+  --dsw-alias-markdown-tag: #999999;
+  --dsw-alias-markdown-placeholder: #8A8A8A;
+
+  /* 滚动条 / 浮层 */
+  --dsw-alias-scrollbar-bg-l1: rgba(255, 255, 255, .10);
+  --dsw-alias-scrollbar-bg-l2: rgba(255, 255, 255, .06);
+  --dsw-alias-scrollbar-hover-l1: rgba(255, 250, 0, .45);
+  --dsw-alias-scrollbar-hover-l2: rgba(255, 250, 0, .30);
+  --dsw-alias-toast-bg: #1F1F22;
+  --dsw-alias-tooltip-bg: #1F1F22;
+
+  /* 组件级 */
+  --dsw-specific-sidebar-fill: #131315;
+  --dsw-specific-sidebar-nav-item-active: rgba(255, 250, 0, .08);
+  --dsw-specific-sidebar-nav-item-active-accent: #FFFA00;
+  --dsw-specific-sidebar-nav-item-hover: rgba(255, 255, 255, .04);
+  --dsw-specific-menu: #1F1F22;
+  --dsw-specific-tip: #1F1F22;
+  --dsw-specific-selector: #1F1F22;
+  --dsw-specific-input-major: #1F1F22;
+  --dsw-specific-login-input: #1F1F22;
+  --dsw-specific-bubble: rgba(31, 31, 34, .72);
+  --dsw-specific-bubble-highlight: rgba(255, 250, 0, .06);
+}
+
+/* ==========================================================================
+   L1b · 字体族补充（markdown 各角色统一到官网字体）
+   ========================================================================== */
+html[data-ef-hud="on"][data-ef-hud="on"] {
+  --dsw-font-markdown-base-font-family: 'Gilroy', 'HarmonyOS Sans SC', 'PingFang SC', sans-serif;
+  --dsw-font-markdown-base-strong-font-family: 'Gilroy', 'HarmonyOS Sans SC', 'PingFang SC', sans-serif;
+  --dsw-font-markdown-small-font-family: 'Gilroy', 'HarmonyOS Sans SC', 'PingFang SC', sans-serif;
+  --dsw-font-markdown-h1-font-family: 'Novecento Wide', 'Gilroy', sans-serif;
+  --dsw-font-markdown-h2-font-family: 'Novecento Wide', 'Gilroy', sans-serif;
+  --dsw-font-markdown-h3-font-family: 'Novecento Wide', 'Gilroy', sans-serif;
+  --dsw-font-markdown-h4-font-family: 'Novecento Wide', 'Gilroy', sans-serif;
+  --dsw-font-markdown-table-font-family: 'Gilroy', 'HarmonyOS Sans SC', 'PingFang SC', sans-serif;
+  --dsw-font-markdown-code-font-family: 'SF Mono', 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+  --dsw-font-markdown-code-block-font-family: 'SF Mono', 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+}
+
+/* ==========================================================================
+   L2 · 官方契约锚点（data-* 与 slot 出口）
+   锚点来源：官方 ui-* 包 TSX 的 data-* 全量扫描 + [data-slot] 出口，
+   与皮肤中心无关，独立可用。作用域一律用双重属性选择器（0,2,x），
+   以压过运行时注入的插件样式（通常 0,1,0）。
+   ========================================================================== */
+
+/* --- 基础 --- */
+html[data-ef-hud="on"][data-ef-hud="on"] { caret-color: var(--ef-caret, #FFFA00); }
+html[data-ef-hud="on"][data-ef-hud="on"] ::selection { background: #FFFA00; color: #0E0E0E; }
+html[data-ef-hud="on"][data-ef-hud="on"] :focus-visible { outline: 2px solid var(--ef-focus, #FFFA00); outline-offset: 1px; }
+html[data-ef-hud="on"][data-ef-hud="on"] ::placeholder { color: var(--dsw-alias-markdown-placeholder); }
+html[data-ef-hud="on"][data-ef-hud="on"] input[type="checkbox"],
+html[data-ef-hud="on"][data-ef-hud="on"] input[type="radio"],
+html[data-ef-hud="on"][data-ef-hud="on"] input[type="range"],
+html[data-ef-hud="on"][data-ef-hud="on"] progress { accent-color: #FFFA00; }
+
+/* --- 直角语言 --- */
+html[data-ef-hud="on"][data-ef-hud="on"] button,
+html[data-ef-hud="on"][data-ef-hud="on"] input,
+html[data-ef-hud="on"][data-ef-hud="on"] textarea,
+html[data-ef-hud="on"][data-ef-hud="on"] select,
+html[data-ef-hud="on"][data-ef-hud="on"] img,
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot],
+html[data-ef-hud="on"][data-ef-hud="on"] [role="dialog"],
+html[data-ef-hud="on"][data-ef-hud="on"] [role="menu"],
+html[data-ef-hud="on"][data-ef-hud="on"] [data-decoration],
+html[data-ef-hud="on"][data-ef-hud="on"] [data-ref-chip],
+html[data-ef-hud="on"][data-ef-hud="on"] [data-tool],
+html[data-ef-hud="on"][data-ef-hud="on"] [data-diff],
+html[data-ef-hud="on"][data-ef-hud="on"] [data-terminal] { border-radius: 0; }
+
+/* --- 三栏骨架 --- */
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] {
+  background: var(--dsw-specific-sidebar-fill);
+  border-right: 1px solid var(--dsw-alias-border-l1);
+}
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="details"] { border-left: 1px solid var(--dsw-alias-border-l1); }
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="conversation.session.header"] {
+  border-bottom: 1px solid var(--dsw-alias-border-l1);
+  box-shadow: inset 0 -1px 0 rgba(255, 250, 0, .10);
+}
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="shell.overlay"] { pointer-events: none; }
+html[data-ef-hud="on"][data-ef-hud="on"] [data-sidebar-collapsed] [data-slot="sidebar"] { border-right-color: var(--dsw-alias-border-l1); }
+
+/* --- 侧栏：工作区 / 会话条目 / 插件入口 --- */
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar.workspaces"] {
+  border-bottom: 1px solid var(--dsw-alias-border-l1);
+}
+html[data-ef-hud="on"][data-ef-hud="on"] [data-plugin-entry],
+html[data-ef-hud="on"][data-ef-hud="on"] [data-dsh-part="sidebar-entry"] {
+  border-radius: 0;
+  transition: background var(--ef-dur-fast, 100ms) linear;
+}
+html[data-ef-hud="on"][data-ef-hud="on"] [data-plugin-entry]:hover {
+  background: var(--dsw-specific-sidebar-nav-item-hover);
+}
+html[data-ef-hud="on"][data-ef-hud="on"] [data-plugin-entry][data-active],
+html[data-ef-hud="on"][data-ef-hud="on"] [data-plugin-entry][data-state="open"] {
+  background: var(--dsw-specific-sidebar-nav-item-active);
+  box-shadow: inset 2px 0 0 var(--dsw-specific-sidebar-nav-item-active-accent);
+}
+
+/* --- 输入区：左侧黄线（HUD 已上膛） --- */
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="conversation.composer"],
+html[data-ef-hud="on"][data-ef-hud="on"] [data-composer-seat] { position: relative; }
+html[data-ef-hud="on"][data-ef-hud="on"] [data-composer-card] {
+  border: 1px solid var(--dsw-alias-border-l2);
+  border-left: 2px solid var(--dsw-alias-brand-primary);
+  border-radius: 0;
+  background: var(--dsw-alias-bg-layer-3);
+}
+html[data-ef-hud="on"][data-ef-hud="on"] [data-input-scroll],
+html[data-ef-hud="on"][data-ef-hud="on"] [data-input-mirror] { font-family: var(--dsw-font-family); }
+/* 输入区三层（mirror 量高 / backdrop 画字 / textarea 只留光标）必须共享
+   font-family / font-weight / font-size / line-height / padding，否则光标的
+   推进宽度与可见文字不一致，光标会偏左（实测 bug，2026-09-09）。
+   这里只统一字体族，绝不改动字重等度量。 */
+html[data-ef-hud="on"][data-ef-hud="on"] textarea[data-phase],
+html[data-ef-hud="on"][data-ef-hud="on"] [data-input-backdrop],
+html[data-ef-hud="on"][data-ef-hud="on"] [data-input-mirror] { font-family: var(--dsw-font-family); }
+html[data-ef-hud="on"][data-ef-hud="on"] [data-decoration="chip"],
+html[data-ef-hud="on"][data-ef-hud="on"] [data-ref-chip] {
+  border: 1px solid var(--dsw-alias-border-l2);
+  background: var(--dsw-alias-bg-layer-3);
+  border-radius: 0;
+  font-family: var(--dsw-font-markdown-code-font-family);
+  font-size: .92em;
+}
+html[data-ef-hud="on"][data-ef-hud="on"] [data-queue-dock] {
+  border-top: 1px solid var(--dsw-alias-border-l1);
+  box-shadow: inset 0 2px 0 rgba(255, 250, 0, .16);
+}
+
+/* --- 会话流 --- */
+html[data-ef-hud="on"][data-ef-hud="on"] [data-chat-flow-kind],
+html[data-ef-hud="on"][data-ef-hud="on"] [data-turn] { border-radius: 0; }
+html[data-ef-hud="on"][data-ef-hud="on"] [data-streaming] {
+  box-shadow: inset 2px 0 0 rgba(255, 250, 0, .28);
+}
+html[data-ef-hud="on"][data-ef-hud="on"] [data-turn-tail] { border-top: 1px solid var(--dsw-alias-border-l1); }
+html[data-ef-hud="on"][data-ef-hud="on"] [data-dsh-part="message-body"] {
+  font-family: var(--dsw-font-family);
+  font-weight: 500;
+  letter-spacing: .002em;
+}
+
+/* --- 工具调用 / 差异 / 终端 / JSON --- */
+html[data-ef-hud="on"][data-ef-hud="on"] [data-tool] {
+  border: 1px solid var(--dsw-alias-border-l1);
+  background: var(--dsw-alias-bg-layer-2);
+  border-radius: 0;
+}
+html[data-ef-hud="on"][data-ef-hud="on"] [data-diff] { font-family: var(--dsw-font-markdown-code-font-family); }
+html[data-ef-hud="on"][data-ef-hud="on"] [data-terminal] {
+  background: var(--dsw-alias-markdown-code-block);
+  border: 1px solid var(--dsw-alias-border-l1);
+  font-family: var(--dsw-font-markdown-code-font-family);
+}
+html[data-ef-hud="on"][data-ef-hud="on"] [data-json-root-row],
+html[data-ef-hud="on"][data-ef-hud="on"] [data-json-expander] { font-family: var(--dsw-font-markdown-code-font-family); }
+html[data-ef-hud="on"][data-ef-hud="on"] [data-json-copy-button] { color: var(--dsw-alias-label-tertiary); }
+
+/* --- 状态语义 --- */
+html[data-ef-hud="on"][data-ef-hud="on"] [data-error],
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot-error] { color: var(--dsw-alias-state-error-primary); }
+html[data-ef-hud="on"][data-ef-hud="on"] [data-running],
+html[data-ef-hud="on"][data-ef-hud="on"] [data-busy],
+html[data-ef-hud="on"][data-ef-hud="on"] [data-loading] { color: var(--dsw-alias-brand-primary); }
+html[data-ef-hud="on"][data-ef-hud="on"] [data-read] { color: var(--dsw-alias-label-tertiary); }
+
+/* --- 弹层 / 菜单 / 提示 --- */
+html[data-ef-hud="on"][data-ef-hud="on"] [role="dialog"] {
+  border: 1px solid var(--dsw-alias-brand-primary);
+  border-radius: 0;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, .65);
+}
+html[data-ef-hud="on"][data-ef-hud="on"] [role="menu"],
+html[data-ef-hud="on"][data-ef-hud="on"] [data-state="open"][role="listbox"] {
+  border: 1px solid var(--dsw-alias-border-l2);
+  border-radius: 0;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, .6);
+}
+html[data-ef-hud="on"][data-ef-hud="on"] [role="menuitem"]:hover,
+html[data-ef-hud="on"][data-ef-hud="on"] [role="option"]:hover,
+html[data-ef-hud="on"][data-ef-hud="on"] [role="option"][aria-selected="true"],
+html[data-ef-hud="on"][data-ef-hud="on"] [role="menuitem"][data-selected],
+html[data-ef-hud="on"][data-ef-hud="on"] [aria-checked="true"] {
+  background: var(--dsw-alias-interactive-bg-hover-accent);
+  box-shadow: inset 2px 0 0 var(--dsw-alias-brand-primary);
+}
+html[data-ef-hud="on"][data-ef-hud="on"] [role="tab"][aria-selected="true"],
+html[data-ef-hud="on"][data-ef-hud="on"] [role="tab"][data-selected] {
+  color: var(--dsw-alias-label-primary-foreground);
+  box-shadow: inset 0 -2px 0 var(--dsw-alias-brand-primary);
+}
+
+/* --- 表单与按钮的交互态 --- */
+html[data-ef-hud="on"][data-ef-hud="on"] button {
+  font-family: var(--dsw-font-family);
+  transition: background var(--ef-dur-fast, 100ms) linear, border-color var(--ef-dur-fast, 100ms) linear;
+}
+html[data-ef-hud="on"][data-ef-hud="on"] button:disabled,
+html[data-ef-hud="on"][data-ef-hud="on"] [data-disabled] { opacity: .45; }
+/* 单行输入（搜索框、内联表单）才上表面色。
+   输入区是三层结构：mirror 量高 / backdrop 画可见文字 / textarea 只留光标且文字透明。
+   给 textarea 上不透明底色会把 backdrop 的文字整片盖住（2026-09-09 实测 bug）。 */
+html[data-ef-hud="on"][data-ef-hud="on"] input {
+  background: var(--dsw-alias-bg-layer-3);
+  border: 1px solid var(--dsw-alias-border-l2);
+  color: var(--dsw-alias-label-primary);
+}
+html[data-ef-hud="on"][data-ef-hud="on"] input:focus {
+  border-color: var(--dsw-alias-brand-primary);
+  outline: none;
+}
+html[data-ef-hud="on"][data-ef-hud="on"] [data-composer-card] textarea,
+html[data-ef-hud="on"][data-ef-hud="on"] [data-input-scroll] textarea {
+  background: transparent;
+  border: 0;
+  caret-color: var(--ef-caret, #FFFA00);
+}
+
+/* --- 排版 / 代码 / 表格 / 链接 --- */
+html[data-ef-hud="on"][data-ef-hud="on"] h1,
+html[data-ef-hud="on"][data-ef-hud="on"] h2,
+html[data-ef-hud="on"][data-ef-hud="on"] h3,
+html[data-ef-hud="on"][data-ef-hud="on"] h4 {
+  font-family: 'Novecento Wide', var(--dsw-font-family);
+  font-weight: 600;
+  letter-spacing: .04em;
+}
+html[data-ef-hud="on"][data-ef-hud="on"] pre,
+html[data-ef-hud="on"][data-ef-hud="on"] code,
+html[data-ef-hud="on"][data-ef-hud="on"] kbd {
+  font-family: var(--dsw-font-markdown-code-font-family);
+  border-radius: 0;
+}
+html[data-ef-hud="on"][data-ef-hud="on"] pre {
+  background: var(--dsw-alias-markdown-code-block);
+  border: 1px solid var(--dsw-alias-border-l1);
+}
+html[data-ef-hud="on"][data-ef-hud="on"] kbd {
+  border: 1px solid var(--dsw-alias-border-l2);
+  background: var(--dsw-alias-bg-layer-3);
+  padding: 0 .4em;
+  font-size: .9em;
+}
+html[data-ef-hud="on"][data-ef-hud="on"] a { color: var(--dsw-alias-markdown-citation); text-decoration: none; }
+html[data-ef-hud="on"][data-ef-hud="on"] a:hover { text-decoration: underline; }
+html[data-ef-hud="on"][data-ef-hud="on"] table { border-collapse: collapse; }
+html[data-ef-hud="on"][data-ef-hud="on"] th,
+html[data-ef-hud="on"][data-ef-hud="on"] td { border: 1px solid var(--dsw-alias-border-l1); }
+html[data-ef-hud="on"][data-ef-hud="on"] hr { border: 0; border-top: 1px solid var(--dsw-alias-border-l1); }
+
+/* --- 滚动条 --- */
+html[data-ef-hud="on"][data-ef-hud="on"] *::-webkit-scrollbar { width: 10px; height: 10px; }
+html[data-ef-hud="on"][data-ef-hud="on"] *::-webkit-scrollbar-track { background: transparent; }
+html[data-ef-hud="on"][data-ef-hud="on"] *::-webkit-scrollbar-thumb {
+  background: var(--dsw-alias-scrollbar-bg-l1);
+  border: 3px solid transparent;
+  background-clip: content-box;
+  border-radius: 0;
+}
+html[data-ef-hud="on"][data-ef-hud="on"] *::-webkit-scrollbar-thumb:hover {
+  background: var(--dsw-alias-scrollbar-hover-l1);
+  background-clip: content-box;
+}
+
+/* ==========================================================================
+   L3 · 插件区域（skin-center 的语义适配器存在时才有 data-dsh-plugin；
+   各插件自己的锚点始终可用）
+   ========================================================================== */
+html[data-ef-hud="on"][data-ef-hud="on"] [data-dsh-taskboard-view],
+html[data-ef-hud="on"][data-ef-hud="on"] [data-dsh-ssh-view],
+html[data-ef-hud="on"][data-ef-hud="on"] [data-gitgraph-dialog] {
+  border: 1px solid var(--dsw-alias-border-l1);
+  border-radius: 0;
+  background: var(--dsw-alias-bg-base);
+}
+html[data-ef-hud="on"][data-ef-hud="on"] [data-dsh-taskboard-view] [data-status] {
+  border-left: 2px solid var(--dsw-alias-border-l2);
+}
+html[data-ef-hud="on"][data-ef-hud="on"] [data-gitgraph-chip-anchor],
+html[data-ef-hud="on"][data-ef-hud="on"] [data-gitgraph-ref] {
+  border: 1px solid var(--dsw-alias-border-l2);
+  border-radius: 0;
+  font-family: var(--dsw-font-markdown-code-font-family);
+}
+html[data-ef-hud="on"][data-ef-hud="on"] [data-dsh-ssh-view] [role="tablist"] { border-bottom: 1px solid var(--dsw-alias-border-l1); }
+html[data-ef-hud="on"][data-ef-hud="on"] [data-dsh-pet-root] { border-radius: 0; }
+html[data-ef-hud="on"][data-ef-hud="on"] [data-dsh-plugin] { border-radius: 0; }
+
+/* 任务看板 */
+html[data-ef-hud="on"][data-ef-hud="on"] [data-dsh-taskboard-board] { background: var(--dsw-alias-bg-base); }
+html[data-ef-hud="on"][data-ef-hud="on"] [data-dsh-taskboard-board] > header { border-bottom: 1px solid var(--dsw-alias-border-l1); }
+html[data-ef-hud="on"][data-ef-hud="on"] [data-dsh-taskboard-entry],
+html[data-ef-hud="on"][data-ef-hud="on"] [data-dsh-taskboard-board] [data-status] > * { border-radius: 0; }
+html[data-ef-hud="on"][data-ef-hud="on"] [data-dsh-taskboard-active] { box-shadow: inset 2px 0 0 var(--dsw-alias-brand-primary); }
+
+/* SSH 面板 */
+html[data-ef-hud="on"][data-ef-hud="on"] [data-dsh-ssh-view] [data-dsh-ssh-xterm],
+html[data-ef-hud="on"][data-ef-hud="on"] [data-dsh-ssh-view] .xterm { background: var(--dsw-alias-markdown-code-block); }
+html[data-ef-hud="on"][data-ef-hud="on"] [data-dsh-ssh-entry] { border-radius: 0; }
+html[data-ef-hud="on"][data-ef-hud="on"] [data-dsh-ssh-active] { box-shadow: inset 2px 0 0 var(--dsw-alias-brand-primary); }
+
+/* Git 图谱 */
+html[data-ef-hud="on"][data-ef-hud="on"] [data-gitgraph-lanes],
+html[data-ef-hud="on"][data-ef-hud="on"] [data-gitgraph-glyph] { font-family: var(--dsw-font-markdown-code-font-family); }
+html[data-ef-hud="on"][data-ef-hud="on"] [data-gitgraph-ref-current] { color: var(--dsw-alias-brand-primary); }
+html[data-ef-hud="on"][data-ef-hud="on"] [data-gitgraph-popover] {
+  border: 1px solid var(--dsw-alias-border-l2);
+  border-radius: 0;
+}
+
+/* 皮肤中心的装饰层 */
+html[data-ef-hud="on"][data-ef-hud="on"] [data-dsh-skin-layer] { border-radius: 0; }
+
+/* ==========================================================================
+   L4 · 类名片段兜底（官方 CSS Modules 形如 _local_hash_seq；
+   只匹配 _local_ 前缀，hash 变化不影响；官方升级仍可能失效）
+   ========================================================================== */
+html[data-ef-hud="on"][data-ef-hud="on"] [class*="_bubble_"],
+html[data-ef-hud="on"][data-ef-hud="on"] [class*="_card_"],
+html[data-ef-hud="on"][data-ef-hud="on"] [class*="_pill_"],
+html[data-ef-hud="on"][data-ef-hud="on"] [class*="_modal"],
+html[data-ef-hud="on"][data-ef-hud="on"] [class*="_toast_"],
+html[data-ef-hud="on"][data-ef-hud="on"] [class*="_submenu_"],
+html[data-ef-hud="on"][data-ef-hud="on"] [class*="_tableScroll_"] { border-radius: 0; }
+html[data-ef-hud="on"][data-ef-hud="on"] [class*="_copyButton_"] {
+  border-radius: 0;
+  font-family: var(--dsw-font-markdown-code-font-family);
+  font-size: .92em;
+}
+
+/* ==========================================================================
+   美术层（官方素材，经 tools/build-art.mjs 压缩到 406 KB）
+   路径 /plugins/endfield-hud/assets/art/*
+   D0 背景 KV + 遮罩 + 右下立绘水印；面板半透明让 KV 透出。
+   ========================================================================== */
+
+/* 背景挂在插件自己的 .ef-hud-bg 上（z-index:-1），而不是 body：
+   皮肤中心给 body 写的是内联 background-image（harbor 壁纸），内联优先级最高，
+   放在 body 上会被顶掉。z-index:-1 的元素位于页面底之上、所有常规内容之下。 */
+
+/* --- D0 亮色背景 --- */
+.ef-hud-bg {
+  position: fixed;
+  /* 留出视差位移余量，避免移动时露边 */
+  inset: -10px;
+  z-index: -1;
+  pointer-events: none;
+  /* 背景层独立透明度 + 鱼眼位移滤镜（scale 由 client 按滑杆写进 feDisplacementMap） */
+  opacity: var(--ef-bg-opacity, 1);
+  filter: url(#ef-hud-fisheye);
+  background-image:
+    linear-gradient(180deg, rgba(237, 237, 235, .62) 0%, rgba(237, 237, 235, .78) 55%, rgba(237, 237, 235, .88) 100%),
+    url('/plugins/endfield-hud/assets/art/kv.jpg');
+  background-position: center, center;
+  background-size: cover, cover;
+  background-repeat: no-repeat, no-repeat;
+  background-attachment: fixed, fixed;
+}
+
+/* HUD 徽章独立成层：**不参与背景的模糊 / RGB 错位 / 边缘渐隐**，
+   否则 1px 描边会被 blur 糊掉（实测问题）。z-index 与背景同层、DOM 在其后，
+   所以压在背景图之上、真实内容之下。 */
+.ef-hud-emblem {
+  position: fixed;
+  inset: -10px;
+  z-index: -1;
+  pointer-events: none;
+  opacity: var(--ef-bg-opacity, 1);
+  background-image: url('/plugins/endfield-hud/assets/art/hud-emblem-light.svg');
+  background-position: 50% 46%;
+  background-size: auto 44vh;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+html[data-ef-hud="on"][data-ef-hud="on"]:has(body[data-ds-dark-theme]) .ef-hud-emblem,
+html[data-ef-hud="on"][data-ef-hud="on"] body[data-ds-dark-theme] .ef-hud-emblem {
+  background-image: url('/plugins/endfield-hud/assets/art/hud-emblem-dark.svg');
+}
+
+/* --- D0 暗色背景 --- */
+html[data-ef-hud="on"][data-ef-hud="on"]:has(body[data-ds-dark-theme]) .ef-hud-bg,
+html[data-ef-hud="on"][data-ef-hud="on"] body[data-ds-dark-theme] .ef-hud-bg {
+  background-image:
+    linear-gradient(180deg, rgba(14, 14, 14, .42) 0%, rgba(14, 14, 14, .62) 55%, rgba(14, 14, 14, .80) 100%),
+    url('/plugins/endfield-hud/assets/art/kv.jpg');
+}
+
+/* body 的底色/背景图让位给 .ef-hud-bg：
+   皮肤中心给 body 写的是内联 background（壁纸），内联样式只能靠 !important 压过；
+   同时 body 一旦有自己的背景，就会盖住 z-index:-1 的美术层，所以这里让它完全透明，
+   底色由 html 的 --dsw-alias-bg-base 承担。 */
+html[data-ef-hud="on"][data-ef-hud="on"] body {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+/* 会话根 div[data-phase] 铺了不透明 --dsw-alias-bg-base，同样会盖住美术层 */
+html[data-ef-hud="on"][data-ef-hud="on"] div[data-phase] { background-color: transparent; }
+
+/* 官方 AppFrame（[data-slot="root"] 的直接子 div）用不透明 --dsw-alias-bg-base 铺满视口，
+   会把 z-index:-1 的美术背景层整个盖住。这里把底色交给 .ef-hud-bg 去铺。 */
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="root"] > div { background-color: transparent; }
+
+/* 注意：`[data-slot="sidebar"]` / `[data-slot="details"]` 本身是 0×0 的出口包装层，
+   真正铺满栏位、画背景的是它的**直接子元素**（实测 280×900 / 1×900），
+   所以面板底色、装饰文字、标志都挂在 `> *` 上。 */
+
+/* --- 面板半透明：让 KV 透出来（用 background-color，给背景图留位） --- */
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] > * { background-color: var(--ef-panel-1); }
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="details"] > * { background-color: var(--ef-panel-2); }
+html[data-ef-hud="on"][data-ef-hud="on"] [data-composer-card] { background-color: var(--ef-panel-3); }
+
+/* --- 侧栏竖排装饰文字：仿官网 left-deco-text，最大字 HARNESS，
+   灰白 40% 不透明度已烘进图片 alpha（tools/build-deco.mjs 生成）。 --- */
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] > * {
+  /* 竖排装饰文字（条带纹理已拆成独立层 .ef-hud-side-tape，便于单独调透明度） */
+  background-image: url('/plugins/endfield-hud/assets/art/sidebar-deco-light.webp');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto 86%;
+  /* 让 z-index:-1 的条带层夹在「面板底色之上、内容之下」 */
+  isolation: isolate;
+}
+
+/* ⚠ 上面这条 isolation 会把面板变成层叠上下文，于是面板内部的设置弹层
+   （.Q6vcTq_overlay，position:fixed）也被困在里面 —— 它的 z-index 只能在面板这一层里
+   比大小，压不过中栏，表现为「点设置后弹层不置顶」（实测 elementFromPoint 命中的是
+   输入框 textarea，即被中栏盖住）。
+   用 :has() 在弹层存在的那一刻让开，纯 CSS、无延迟；弹层关闭时自动恢复 isolate。
+   实测会话行菜单 / 视图选项菜单都 portal 到面板外，不受影响；面板内唯一的弹层就是
+   设置对话框（role="dialog"），所以这里只匹配它。 */
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] > *:has([role="dialog"]) {
+  isolation: auto;
+}
+
+/* 侧栏条带纹理：左旋 90° 的 tape-wave-bg，纵向平铺。
+   ▸ 只想调透明度就改下面这一行的 opacity（0 = 关闭）。 */
+/* ⚠ 这里不能用 inset:0 靠父级定位：面板（[data-slot="sidebar"] > *）一旦被设成
+   position:relative，就会成为里面设置弹层（position:fixed）的包含块，设置页会塌成 280px。
+   所以 left/top/width/height 由 client 逐帧测量后写成 px。 */
+.ef-hud-side-tape {
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  background-image: url('/plugins/endfield-hud/assets/art/tape-v-light.webp');
+  background-repeat: repeat-y;
+  background-position: center top;
+  background-size: 100% auto;
+  opacity: 0.15;   /* 1 = 与拆分前完全一致（原来就是这张图整层铺在面板上）；嫌抢眼就调小，0 = 关闭 */
+}
+html[data-ef-hud="on"][data-ef-hud="on"]:has(body[data-ds-dark-theme]) .ef-hud-side-tape,
+html[data-ef-hud="on"][data-ef-hud="on"] body[data-ds-dark-theme] .ef-hud-side-tape {
+  background-image: url('/plugins/endfield-hud/assets/art/tape-v-dark.webp');
+}
+html[data-ef-hud="on"][data-ef-hud="on"]:has(body[data-ds-dark-theme]) [data-slot="sidebar"] > *,
+html[data-ef-hud="on"][data-ef-hud="on"] body[data-ds-dark-theme] [data-slot="sidebar"] > * {
+  background-image: url('/plugins/endfield-hud/assets/art/sidebar-deco-dark.webp');
+}
+
+/* --- 右侧栏中央标志：栏目宽度 40%、居中、不透明（源图 alpha 原样保留）。 --- */
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="details"] > * {
+  background-image: url('/plugins/endfield-hud/assets/art/logo-light.webp');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 40% auto;
+}
+html[data-ef-hud="on"][data-ef-hud="on"]:has(body[data-ds-dark-theme]) [data-slot="details"] > *,
+html[data-ef-hud="on"][data-ef-hud="on"] body[data-ds-dark-theme] [data-slot="details"] > * {
+  background-image: url('/plugins/endfield-hud/assets/art/logo-dark.webp');
+}
+
+/* ==========================================================================
+   HUD 装饰层（由 client 半区插入，pointer-events: none）
+   ========================================================================== */
+.ef-hud-deco {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  opacity: var(--ef-panel-opacity, 1);
+  /* 装饰层配色随主题切换：亮色用深线，暗色用浅线 */
+  --ef-deco-grid: rgba(0, 0, 0, .055);
+  --ef-deco-scan: rgba(0, 0, 0, .030);
+  --ef-deco-corner: rgba(0, 0, 0, .30);
+  --ef-deco-text: #6E6E6E;
+  --ef-deco-accent: #B8A800;
+}
+html[data-ef-hud="on"][data-ef-hud="on"]:has(body[data-ds-dark-theme]) .ef-hud-deco,
+html[data-ef-hud="on"][data-ef-hud="on"] body[data-ds-dark-theme] .ef-hud-deco {
+  --ef-deco-grid: rgba(255, 255, 255, .035);
+  --ef-deco-scan: rgba(255, 255, 255, .022);
+  --ef-deco-corner: rgba(255, 255, 255, .28);
+  --ef-deco-text: #999999;
+  --ef-deco-accent: #FFFA00;
+}
+.ef-hud-deco .grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(var(--ef-deco-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--ef-deco-grid) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.ef-hud-deco .scan {
+  position: absolute; inset: 0;
+  background-image: repeating-linear-gradient(180deg, var(--ef-deco-scan) 0 1px, transparent 1px 4px);
+}
+.ef-hud-deco .corner { position: absolute; width: 22px; height: 22px; border: 1px solid var(--ef-deco-corner); }
+.ef-hud-deco .corner.tl { top: 14px; left: 14px; border-right: 0; border-bottom: 0; }
+.ef-hud-deco .corner.tr { top: 14px; right: 14px; border-left: 0; border-bottom: 0; }
+.ef-hud-deco .corner.bl { bottom: 14px; left: 14px; border-right: 0; border-top: 0; }
+.ef-hud-deco .corner.br { bottom: 14px; right: 14px; border-left: 0; border-top: 0; }
+.ef-hud-deco .tape {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 8px;
+  background-image: url('/plugins/endfield-hud/assets/art/tape.webp');
+  background-repeat: repeat-x;
+  background-size: auto 100%;
+  opacity: .22;
+}
+/* 右下角立塔：直接引用两张原图（tower-top 333×145 + tower-bottom 333×217），
+   不做任何图像处理，明暗主题都用同一份原图（不再染色、不再加 filter）。
+   尺寸 = 原图的 1/2：两层都按 166.5px 宽铺 → 72.5 + 108.5 = 181px，正好拼上。
+   层级 = 背景层（z-index:-1）：它原来在装饰层（z-index:40），而 x 921–1165 那一段
+   正好压着中栏正文和输入卡，把文字盖住了 —— 现在整体沉到内容之下。
+   ▸ 位置/尺寸手动微调就在下面这一行。 */
+.ef-hud-tower {
+  position: fixed; right: 26px; bottom: 150px; width: 167px; height: 181px;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    url('/plugins/endfield-hud/assets/art/tower-top.png'),
+    url('/plugins/endfield-hud/assets/art/tower-bottom.png');
+  background-repeat: no-repeat, no-repeat;
+  background-position: right top, right bottom;
+  background-size: 166.5px auto, 166.5px auto;   /* 原图的 0.5 倍 */
+  opacity: .55;
+}
+
+/* 右上角条带纹理：压在 REC 读数下层（DOM 顺序在读数块之前） */
+.ef-hud-deco .deco-tape {
+  position: absolute; right: 22px; top: 132px; width: 240px; height: 60px;
+  background-image: url('/plugins/endfield-hud/assets/art/tape.webp');
+  background-repeat: no-repeat;
+  background-position: right top;
+  background-size: contain;
+  opacity: .70;
+}
+
+/* 左下角官网装饰线（背景层，z-index:-1 → 永远在左侧抽屉栏之下，不再遮挡它） */
+.ef-hud-bl {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: .65;
+}
+.ef-hud-bl::before {
+  content: "";
+  position: absolute;
+  /* ↓ 左下角装饰线：位置 + 尺寸（放大 2 倍），想手动微调就在这两行 */
+  left: 14px; bottom: 34px; width: 600px; height: 358px;
+  background-image: url('/plugins/endfield-hud/assets/art/deco-rt-light.webp');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  transform: rotate(180deg);     /* 旋转 180°（绕自身中心，位置不动） */
+  transform-origin: center center;
+}
+html[data-ef-hud="on"][data-ef-hud="on"]:has(body[data-ds-dark-theme]) .ef-hud-bl::before,
+html[data-ef-hud="on"][data-ef-hud="on"] body[data-ds-dark-theme] .ef-hud-bl::before {
+  background-image: url('/plugins/endfield-hud/assets/art/deco-rt-dark.webp');
+}
+.ef-hud-deco .glyphs {
+  /* left 由 client 按中栏左边缘动态设置，避免压住左下角设置按钮 */
+  position: absolute; left: 22px; bottom: 14px;
+  display: flex; align-items: center; gap: 6px;
+  font-family: 'Space Grotesk EF', 'Roboto EF', ui-monospace, Consolas, monospace;
+  font-size: 10px; letter-spacing: .16em; color: var(--ef-deco-text);
+}
+.ef-hud-deco .glyphs img { width: 16px; height: 16px; opacity: .75; }
+/* S1 · 线性图标：统一走 currentColor，随主题与状态变色 */
+.ef-hud-deco .glyphs .ef-icon { width: 14px; height: 14px; opacity: .85; color: var(--ef-deco-text); }
+.ef-hud-deco .glyphs .ef-icon:first-child { color: var(--ef-deco-accent); }
+.ef-hud-deco .stamp {
+  position: absolute; right: 22px; bottom: 26px; text-align: right;
+  font-family: 'Space Grotesk EF', 'Roboto EF', ui-monospace, Consolas, monospace;
+  font-size: 10px; line-height: 14px; letter-spacing: .18em;
+  color: var(--ef-deco-text); text-transform: uppercase;
+}
+.ef-hud-deco .stamp b { color: var(--ef-deco-accent); font-weight: 400; }
+
+/* ==========================================================================
+   S2 · 几何语言：切角 / 面板厚度 / 按钮强调
+   只用 clip-path 与 box-shadow —— 两者都不创建 fixed 包含块，也不占用
+   ::before/::after（教训：transform 会把设置面板压成侧栏宽度）。
+   ========================================================================== */
+
+/* 卡片右上角切 10px（工具卡 / 输入卡 / 看板卡）
+   ⚠ clip-path 会连子孙一起裁掉，而输入卡里的弹层就是从卡内往外弹的：
+     模型 / 权限 / 上下文容量这些菜单实测 rect 顶边 313，而卡片 top 是 331 ——
+     高出去的那一截被这一刀裁没了（elementFromPoint 命中的是卡后面的页面元素）。
+   所以只要卡里出现弹层就撤掉这一刀，弹层关掉再切回来。
+   判定用「卡里出现了弹层」的四个信号串联（role=menu / role=dialog / role=listbox /
+   aria-expanded=true —— 实测输入卡的模型触发器 aria-expanded 会从 false 变 true，
+   命令按钮 aria-haspopup=listbox 走的是另一条路），空态下四个都不命中，所以切角会切回来。
+   （写成 :has(a, b) 单条会被 check-scope 的逗号切分判成越界，只能串联。） */
+html[data-ef-hud="on"][data-ef-hud="on"] [data-tool]:not(:has([role="menu"])):not(:has([role="dialog"])):not(:has([role="listbox"])):not(:has([aria-expanded="true"])),
+html[data-ef-hud="on"][data-ef-hud="on"] [data-composer-card]:not(:has([role="menu"])):not(:has([role="dialog"])):not(:has([role="listbox"])):not(:has([aria-expanded="true"])),
+html[data-ef-hud="on"][data-ef-hud="on"] [data-dsh-taskboard-entry]:not(:has([role="menu"])):not(:has([role="dialog"])):not(:has([role="listbox"])):not(:has([aria-expanded="true"])),
+html[data-ef-hud="on"][data-ef-hud="on"] [data-dsh-taskboard-board] [data-status] > *:not(:has([role="menu"])):not(:has([role="dialog"])):not(:has([role="listbox"])):not(:has([aria-expanded="true"])) {
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+}
+
+/* 面板厚度：内侧 1px 高光 + 外侧 2px 硬投影（硬投影才有「投影设备」的厚度感） */
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] > * {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05), 2px 0 0 rgba(0, 0, 0, .30);
+}
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="details"] > * {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05), -2px 0 0 rgba(0, 0, 0, .30);
+}
+html[data-ef-hud="on"][data-ef-hud="on"] [data-composer-card] {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06), 2px 2px 0 rgba(0, 0, 0, .32);
+}
+
+/* 按钮：悬停/按下时左侧 3px 强调条（不裁剪，保住焦点环） */
+html[data-ef-hud="on"][data-ef-hud="on"] button:hover:not(:disabled) {
+  box-shadow: inset 3px 0 0 var(--dsw-alias-brand-primary);
+}
+html[data-ef-hud="on"][data-ef-hud="on"] button:active:not(:disabled) {
+  box-shadow: inset 3px 0 0 var(--dsw-alias-brand-primary), inset 0 0 0 1px var(--dsw-alias-brand-primary);
+}
+
+/* ==========================================================================
+   S4 · 网格与刻度：左右两侧刻度尺
+   ========================================================================== */
+.ef-hud-deco .ruler {
+  position: absolute; top: 0; bottom: 0; width: 9px;
+  background-image:
+    repeating-linear-gradient(180deg, var(--ef-deco-corner) 0 1px, transparent 1px 32px),
+    repeating-linear-gradient(180deg, var(--ef-deco-accent) 0 1px, transparent 1px 128px);
+  background-size: 4px 100%, 9px 100%;
+  background-repeat: no-repeat, no-repeat;
+  background-position: left top, left top;
+  opacity: .55;
+}
+.ef-hud-deco .ruler.left { left: 0; }
+.ef-hud-deco .ruler.right {
+  right: 0;
+  background-position: right top, right top;
+}
+
+/* ==========================================================================
+   S7 · 侧栏功能按钮风格化
+   全部锚定在 [data-slot="sidebar"] 内：会话行 / 功能入口 / 工作区 / 新建会话 / 设置。
+   ========================================================================== */
+
+/* --- 品牌行：底部细线 --- */
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] [class*="_logoRow"] {
+  border-bottom: 1px solid var(--dsw-alias-border-l1);
+  margin-bottom: 8px;
+}
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] [class*="_logoRow"] button {
+  border-radius: 0;
+  letter-spacing: .04em;
+}
+
+/* --- 新建会话：HUD 主操作（黄底黑字 + 左下切角 + 左侧竖条）
+   注意选择器必须限定 button：`_newSessionLabel` 也含 "_newSession" 子串，
+   不加限定会把标签一起裁掉、还在文字上盖一条 3px 黑条（实测 bug）。 --- */
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] button[class*="_newSession"] {
+  background-color: var(--dsw-alias-brand-primary);
+  color: #0E0E0E;
+  border: 0;
+  border-radius: 0;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  box-shadow: inset 3px 0 0 rgba(0, 0, 0, .55);
+  font-family: 'Novecento Wide', var(--dsw-font-family);
+  letter-spacing: .10em;
+}
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] button[class*="_newSession"] svg { color: #0E0E0E; }
+
+/* 标签绝不参与裁剪与内阴影（子串误伤护栏） */
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] button[class*="_newSession"] [class*="_newSessionLabel"] {
+  clip-path: none;
+  box-shadow: none;
+  background-color: transparent;
+  color: inherit;
+}
+
+/* 悬停/聚焦：整体反色 —— 黑底黄字，保证任何底色下都读得清 */
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] button[class*="_newSession"]:hover,
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] button[class*="_newSession"]:focus-visible {
+  background-color: #0E0E0E;
+  color: var(--dsw-alias-brand-primary);
+  box-shadow: inset 3px 0 0 var(--dsw-alias-brand-primary);
+}
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] button[class*="_newSession"]:hover svg,
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] button[class*="_newSession"]:focus-visible svg {
+  color: var(--dsw-alias-brand-primary);
+}
+/* clip-path 会裁掉 outline，聚焦改用内阴影画焦点环 */
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] button[class*="_newSession"]:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 2px var(--dsw-alias-brand-primary), inset 3px 0 0 var(--dsw-alias-brand-primary);
+}
+
+/* --- 功能入口（任务看板 / SSH / 技能中心…）：左侧状态条 + 图标取景框 + 序号 --- */
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] button[class*="_entry"],
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] [data-dsh-plugin] {
+  position: relative;
+  border-left: 2px solid transparent;
+  border-radius: 0;
+  transition: background-color var(--ef-dur-fast, 100ms) linear, border-color 100ms steps(1);
+}
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] button[class*="_entry"]:hover,
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] [data-dsh-plugin]:hover {
+  background-color: var(--dsw-alias-interactive-bg-hover);
+  border-left-color: var(--dsw-alias-brand-primary);
+}
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] [data-dsh-taskboard-active],
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] [data-dsh-ssh-active] {
+  background-color: var(--dsw-specific-sidebar-nav-item-active);
+  border-left-color: var(--dsw-alias-brand-primary);
+}
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] [class*="_entryIcon"] {
+  width: 20px; height: 20px; flex: none;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid var(--dsw-alias-border-l2);
+  border-radius: 0;
+  box-shadow: inset -2px -2px 0 -1px var(--dsw-alias-brand-primary);
+  color: var(--dsw-alias-label-secondary);
+}
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] button[class*="_entry"]:hover [class*="_entryIcon"],
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] [data-dsh-plugin]:hover [class*="_entryIcon"] {
+  color: var(--dsw-alias-brand-primary);
+  border-color: var(--dsw-alias-border-l3);
+}
+/* 序号：由 client 注入（01 / 02 / 03…） */
+html[data-ef-hud="on"][data-ef-hud="on"] .ef-idx {
+  margin-left: auto;
+  font-family: 'Space Grotesk EF', 'Roboto EF', ui-monospace, Consolas, monospace;
+  font-size: 10px; letter-spacing: .16em; font-style: normal;
+  color: var(--dsw-alias-label-tertiary);
+}
+html[data-ef-hud="on"][data-ef-hud="on"] button[class*="_entry"]:hover .ef-idx,
+html[data-ef-hud="on"][data-ef-hud="on"] [data-dsh-plugin]:hover .ef-idx { color: var(--dsw-alias-brand-primary); }
+
+/* --- 分组标题（工作区 / 会话）：大写 + 字距 + 黄方块 --- */
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] [class*="_sectionLabel"] {
+  font-family: 'Novecento Wide', var(--dsw-font-family);
+  font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--dsw-alias-label-secondary);
+  display: inline-flex; align-items: center; gap: 6px;
+}
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] [class*="_sectionLabel"]::before {
+  content: ''; width: 6px; height: 6px; display: block;
+  background: var(--dsw-alias-brand-primary);
+}
+
+/* --- 搜索框：直角 + 底线 --- */
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] [class*="_searchInput"] {
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--dsw-alias-border-l1);
+  border-radius: 0;
+}
+
+/* --- 会话行：左侧状态条 + 悬停/当前态 --- */
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] [class*="_sessionRow"] {
+  position: relative;
+  border-left: 2px solid transparent;
+  border-radius: 0;
+}
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] [class*="_sessionRow"]:hover {
+  background-color: var(--dsw-alias-interactive-bg-hover);
+  border-left-color: var(--dsw-alias-border-l3);
+}
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] [class*="_sessionRow"][aria-current],
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] [class*="_sessionRow"][data-active] {
+  background-color: var(--dsw-specific-sidebar-nav-item-active);
+  border-left-color: var(--dsw-alias-brand-primary);
+}
+
+/* --- 工作区行 / 底部设置 --- */
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] [class*="_projectRow"] { border-radius: 0; }
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] [class*="_footArea"] {
+  border-top: 1px solid var(--dsw-alias-border-l1);
+  /* 上移 36px：左下角留给 HUD 图标读数行 */
+  margin-bottom: 36px;
+}
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] [data-slot="settings.trigger"] { border-radius: 0; }
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] [data-slot="settings.trigger"]:hover {
+  box-shadow: inset 3px 0 0 var(--dsw-alias-brand-primary);
+}
+
+/* ==========================================================================
+   S8 · 会话行 / 工作区行 / 退出按钮
+   ========================================================================== */
+
+/* --- 会话行：左侧状态条 + 当前态黄条 + 悬停黄刻度 --- */
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] [class*="_sessionRow"] {
+  position: relative;
+  border-left: 2px solid transparent;
+  border-radius: 0;
+  transition: background-color var(--ef-dur-fast, 100ms) linear, border-color 100ms steps(1);
+}
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] [class*="_sessionRow"]:hover {
+  background-color: var(--dsw-alias-interactive-bg-hover);
+  border-left-color: var(--dsw-alias-border-l3);
+  /* 右侧出现一根黄色刻度（不用伪元素，避免与官方占位冲突） */
+  background-image: linear-gradient(90deg, var(--dsw-alias-brand-primary) 0 100%);
+  background-size: 2px 10px;
+  background-position: right 8px center;
+  background-repeat: no-repeat;
+}
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] [class*="_sessionRow"][aria-selected="true"] {
+  background-color: var(--dsw-specific-sidebar-nav-item-active);
+  border-left-color: var(--dsw-alias-brand-primary);
+  box-shadow: inset 0 0 0 1px rgba(255, 250, 0, .22);
+}
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] [class*="_sessionRow"] [class*="_title"] {
+  font-size: 12.5px;
+  letter-spacing: .01em;
+}
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] [class*="_sessionRow"][aria-selected="true"] [class*="_title"] {
+  color: var(--dsw-alias-label-primary-foreground);
+}
+
+/* --- 工作区行：直角 + 左侧状态条 + 悬停强调 --- */
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] [class*="_projectRow"] {
+  border-left: 2px solid transparent;
+  border-radius: 0;
+}
+html[data-ef-hud="on"][data-ef-hud="on"] [data-slot="sidebar"] [class*="_projectRow"]:hover {
+  background-color: var(--dsw-alias-interactive-bg-hover);
+  border-left-color: var(--dsw-alias-brand-primary);
+}
+
+/* --- 右下角退出按钮：HUD 控件 --- */
+html[data-ef-hud="on"][data-ef-hud="on"] [data-dsh-shutdown-float] button {
+  /* 从 bottom:24px 上移，避开右下角铭牌 */
+  bottom: 84px;
+  border-radius: 0;
+  border: 1px solid var(--dsw-alias-border-l2);
+  background-color: var(--ef-panel-3, rgba(25, 25, 25, .74));
+  color: var(--dsw-alias-label-secondary);
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .35);
+  transition: background-color var(--ef-dur-fast, 100ms) linear, color 80ms steps(1);
+}
+html[data-ef-hud="on"][data-ef-hud="on"] [data-dsh-shutdown-float] button:hover {
+  background-color: var(--dsw-alias-brand-primary);
+  color: #0E0E0E;
+  border-color: var(--dsw-alias-brand-primary);
+}
+html[data-ef-hud="on"][data-ef-hud="on"] [data-dsh-shutdown-float] button:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 2px var(--dsw-alias-brand-primary);
+}
+
+/* ==========================================================================
+   S3 · 数据微标 + S6 · 工业标识（右上角读数块 / 铭牌 / REC）
+   ========================================================================== */
+.ef-hud-deco .readout {
+  position: absolute; top: 62px; right: 22px; text-align: right;
+  font-family: 'Space Grotesk EF', 'Roboto EF', ui-monospace, Consolas, monospace;
+  font-size: 10px; line-height: 16px; letter-spacing: .14em;
+  color: var(--ef-deco-text); text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+.ef-hud-deco .readout .line { white-space: nowrap; }
+.ef-hud-deco .readout em { font-style: normal; color: var(--ef-deco-accent); }
+.ef-hud-deco .readout .rec { display: flex; align-items: center; justify-content: flex-end; gap: 6px; }
+.ef-hud-deco .readout .rec i {
+  width: 6px; height: 6px; display: block;
+  background: var(--ef-magenta, #FF1AAC);
+  /* S5 · 机械感：阶跃闪烁，不是缓动呼吸 */
+  animation: ef-rec 1.6s steps(1) infinite;
+}
+.ef-hud-deco .readout .rec b { font-weight: 400; color: var(--ef-magenta, #FF1AAC); }
+@keyframes ef-rec { 0%, 62% { opacity: 1 } 63%, 100% { opacity: .22 } }
+
+/* 铭牌：右下角设备标 + 2px 危险斜纹下划线 */
+.ef-hud-deco .stamp {
+  padding-bottom: 7px;
+  background-image: repeating-linear-gradient(90deg, var(--ef-deco-accent) 0 6px, transparent 6px 12px);
+  background-size: 100% 2px;
+  background-position: right bottom;
+  background-repeat: no-repeat;
+}
+
+/* ==========================================================================
+   M4 · 动效
+   视差由 client 半区驱动（单 rAF 循环 + 阻尼 + 倾斜）；
+   这里放边缘效果的静态样式、进场动画与降级规则。
+   ========================================================================== */
+
+/* 边缘效果只作用于**背景图片层**（.ef-hud-bg）：
+   模糊 + RGB 通道错位 + 边缘渐隐（mask 径向渐变），全部由 client 按强度写内联样式。
+   早期版本用 backdrop-filter 边带，会把「身后的真实 UI」也一起模糊掉——已废弃。 */
+
+/* 转场扫描线：会话切换时由 client 触发一次（掩盖内容硬切） */
+.ef-hud-deco .flash {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background-image: linear-gradient(180deg, transparent 0%, rgba(255, 250, 0, .10) 46%, rgba(255, 250, 0, .18) 50%, rgba(255, 250, 0, .10) 54%, transparent 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 42%;
+  background-position: 0 -42%;
+}
+/* S5 · 机械感：扫描线用 6 段阶跃，像设备重绘而不是缓动滑过 */
+.ef-hud-deco .flash[data-play="1"] { animation: ef-sweep 260ms steps(6) both; }
+@keyframes ef-sweep {
+  from { background-position: 0 -42%; opacity: .85; }
+  to { background-position: 0 142%; opacity: 0; }
+}
+
+/* 弹层进场：只做透明度淡入（不动 transform，避免破坏居中与阴影） */
+@keyframes ef-fade-in { from { opacity: 0 } to { opacity: 1 } }
+html[data-ef-hud="on"][data-ef-hud="on"] [role="dialog"],
+html[data-ef-hud="on"][data-ef-hud="on"] [role="menu"] {
+  animation: ef-fade-in var(--ef-dur-hud, 420ms) var(--ef-ease, cubic-bezier(.4,0,.2,1)) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-ef-hud="on"] * { transition: none !important; animation: none !important; }
+  .ef-hud-deco .flash { display: none; }
+  .ef-hud-bg { filter: none !important; }
+  html[data-ef-hud="on"][data-ef-hud="on"] [role="dialog"],
+  html[data-ef-hud="on"][data-ef-hud="on"] [role="menu"] { animation: none; }
+}

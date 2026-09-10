@@ -1,0 +1,45 @@
+{
+  "name": "dsh-client-ui-endfield-hud",
+  "version": "0.1.0",
+  "description": "Endfield HUD — an Arknights: Endfield inspired holographic HUD skin plugin for the DeepSeek Harness Web GUI",
+  "type": "module",
+  "license": "Apache-2.0",
+  "main": "host/index.js",
+  "exports": {
+    ".": "./host/index.js",
+    "./client": "./client/index.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "host",
+    "client",
+    "assets",
+    "cordis.patch.yml",
+    "README.md",
+    "NOTICE.md",
+    "LICENSE"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-runtime",
+        "@deepseek-ai/dsh-client-ui-settings"
+      ]
+    }
+  },
+  "keywords": [
+    "dsh-plugin",
+    "dsh-skin",
+    "deepseek-harness",
+    "endfield",
+    "hud",
+    "theme"
+  ],
+  "engines": {
+    "node": "^22.19.0 || >=24.0.0"
+  }
+}

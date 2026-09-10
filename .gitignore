@@ -1,0 +1,19 @@
+# 参考素材与截图（本机开发用，永不进仓库）
+_refs/
+_shots/
+assets/local/
+
+# 截图基线：640×360 的整屏截图里带着本机「工作区/会话标题」，含个人信息，不进仓库。
+# （visual-check 在没有基线时会自动用当前截图重建，不影响克隆后的使用。）
+design/shot-baseline/
+
+# 依赖与构建产物
+node_modules/
+dist/
+lib/
+*.tsbuildinfo
+
+# 杂项
+.DS_Store
+Thumbs.db
+*.log
